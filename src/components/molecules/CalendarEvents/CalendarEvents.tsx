@@ -1,36 +1,51 @@
-import React, { useEffect, useState } from "react";
-import { listUpcomingEvents, initClient } from "../../../api/googleCalendarApi";
-import { CalendarEvent } from "../../../types";
+import React, { useEffect, useState } from 'react';
+import {
+  listUpcomingEvents,
+  initClient,
+  signInWithGoogle,
+  checkIfSignedIn,
+} from '../../../api/googleCalendarApi';
+import { CalendarEvent } from '../../../types';
 import {
   Container,
   Title,
   EventList,
   EventItem,
-} from "./CalendarEvents.styles";
-import { useNotificationStore } from "../../../store/notificationStore";
+} from './CalendarEvents.styles';
+import { useNotificationStore } from '../../../store/notificationStore';
+import Button from '../../atoms/Button/Button'; // ボタンコンポーネントをインポート
 
 const CalendarEvents: React.FC = () => {
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const setMessage = useNotificationStore((state) => state.setMessage);
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        await initClient();
-        const googleEvents = await listUpcomingEvents();
-        setEvents(googleEvents);
-      } catch (error) {
-        console.error("Error fetching events: ", error);
-        setMessage("Error fetching events", "error");
+  const handleFetchEvents = async () => {
+    try {
+      console.log('Initializing GAPI client...');
+      await initClient();
+      if (!checkIfSignedIn()) {
+        console.log('Signing in with Google...');
+        await signInWithGoogle();
       }
-    };
+      console.log('Fetching events...');
+      const googleEvents = await listUpcomingEvents();
+      console.log('Events fetched:', googleEvents);
+      setEvents(googleEvents);
+    } catch (error) {
+      console.error('Error fetching events: ', error);
+      setMessage('Error fetching events', 'error');
+    }
+  };
 
-    fetchEvents();
-  }, [setMessage]);
+  useEffect(() => {
+    handleFetchEvents();
+  }, []);
 
   return (
     <Container>
       <Title>Upcoming Events</Title>
+      <Button onClick={handleFetchEvents}>Fetch Events</Button>{' '}
+      {/* ボタンを追加 */}
       <EventList>
         {events.map((event) => (
           <EventItem key={event.id}>

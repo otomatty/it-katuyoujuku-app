@@ -1,12 +1,14 @@
 // src/firebase/firebaseConfig.ts
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  measurementId: "YOUR_MEASUREMENT_ID",
+  apiKey: 'AIzaSyCOHZAYXicg6FiAj_uTzu2G7qP2AsL1EuI',
+  authDomain: 'it-katuyoujuku-app.firebaseapp.com',
+  databaseURL:
+    'https://it-katuyoujuku-app-default-rtdb.asia-southeast1.firebasedatabase.app',
+  projectId: 'it-katuyoujuku-app',
+  storageBucket: 'it-katuyoujuku-app.appspot.com',
+  messagingSenderId: '334278865241',
+  appId: '1:334278865241:web:f9101b30d0e2a3ec491c48',
+  measurementId: 'G-1SCBW169KD',
 };
 
 export default firebaseConfig;

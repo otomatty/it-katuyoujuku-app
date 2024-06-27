@@ -15,3 +15,13 @@ export interface CalendarEvent {
   }>;
   source?: string; // 追加
 }
+
+export interface Task {
+  id: number;
+  date: string;
+  description: string;
+  startTime: string; // 開始時間
+  endTime: string; // 終了時間
+  notes: string;
+  tags: string[];
+}

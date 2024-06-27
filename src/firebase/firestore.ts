@@ -1,10 +1,10 @@
-import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
-import { app } from "./firebaseApp";
-import { CalendarEvent } from "../types";
+import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
+import { app } from './firebaseApp';
+import { CalendarEvent } from '../types';
 
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
-export const eventsCollection = collection(db, "events");
+export const eventsCollection = collection(db, 'events');
 
 export const fetchEventsFromFirestore = async (): Promise<CalendarEvent[]> => {
   const querySnapshot = await getDocs(eventsCollection);
